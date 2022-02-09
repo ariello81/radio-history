@@ -1,0 +1,20 @@
+odsluchane:
+  stations:
+    -
+      id: 1
+      name: Radio Zet
+    -
+      id: 2
+      name: RMF FM
+    -
+      id: 3
+      name: Eska
+    -
+      id: 4
+      name: Trójka
+    -
+      id: 160
+      name: RMF Ballady
+    -
+      id: 326
+      name: Open FM Praca
