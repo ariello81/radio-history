@@ -28,12 +28,6 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
-		<!-- Thymleaf -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
 		<!-- jsoup (HTML Parser) -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
