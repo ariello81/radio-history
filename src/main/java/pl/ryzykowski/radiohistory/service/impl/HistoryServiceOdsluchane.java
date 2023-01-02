@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.ryzykowski.radiohistory.aop.Timed;
 import pl.ryzykowski.radiohistory.config.ConfigOdsluchane;
 import pl.ryzykowski.radiohistory.dto.Song;
+import pl.ryzykowski.radiohistory.dto.Station;
 import pl.ryzykowski.radiohistory.dto.StationArtistSummary;
 import pl.ryzykowski.radiohistory.service.impl.parser.HtmlParserOdsluchane;
 import pl.ryzykowski.radiohistory.service.HistoryService;
@@ -113,6 +114,11 @@ public class HistoryServiceOdsluchane implements HistoryService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<Station> getAllStations() {
+        return configOdsluchane.getStations();
     }
 
 
