@@ -19,9 +19,11 @@ public class DatesUtilOdsluchane {
     }
 
     public boolean validateDates(String dateFrom, String dateTo) {
+        LocalDate dateFromLocalDate;
+        LocalDate dateToLocalDate;
         try {
-            LocalDate dateFromLocalDate = LocalDate.parse(dateFrom);
-            LocalDate dateToLocalDate = LocalDate.parse(dateTo);
+            dateFromLocalDate = tryToParseDate(dateFrom);
+            dateToLocalDate = tryToParseDate(dateTo);
             if (dateFromLocalDate.isAfter(dateToLocalDate)) {
                 return false;
             }
@@ -32,6 +34,11 @@ public class DatesUtilOdsluchane {
         }
         return true;
     }
+
+    public LocalDate tryToParseDate(String date) throws DateTimeParseException {
+        return LocalDate.parse(date);
+    }
+
 
     public List<LocalDate> getAllDatesBetweenTwoDates(String startDate, String endDate) {
         final LocalDate startLocalDate = LocalDate.parse(startDate).isBefore(LocalDate.now()) ? LocalDate.parse(startDate) : LocalDate.now();

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,6 +59,33 @@ public class DatesUtilOdsluchaneTest {
     }
 
     @Test
-    public void shouldReturnFalseAndExceptionValidateDatesBadFormat() {
+    public void shouldThrowExceptionTryToParseDateBadFormat() {
+        assertThrows(DateTimeParseException.class, ()-> datesUtilOdsluchane.tryToParseDate("20220203"));
+    }
+
+    @Test
+    public void shouldThrowExceptionTryToParseDateCorrectFormat() {
+        assertDoesNotThrow(()-> datesUtilOdsluchane.tryToParseDate("2022-02-03"));
+    }
+
+    @Test
+    public void shouldReturnFalseAndExceptionValidateDatesBadFormat1() {
+        String dateFrom = "20220203";
+        String dateTo = "2022-02-01";
+        assertFalse(datesUtilOdsluchane.validateDates(dateFrom, dateTo));
+    }
+
+    @Test
+    public void shouldReturnFalseAndExceptionValidateDatesBadFormat2() {
+        String dateFrom = "2022-02-01";
+        String dateTo = "20220203";
+        assertFalse(datesUtilOdsluchane.validateDates(dateFrom, dateTo));
+    }
+
+    @Test
+    public void shouldReturnFalseAndExceptionValidateDatesBadFormat3() {
+        String dateFrom = "20220201";
+        String dateTo = "20220203";
+        assertFalse(datesUtilOdsluchane.validateDates(dateFrom, dateTo));
     }
 }
