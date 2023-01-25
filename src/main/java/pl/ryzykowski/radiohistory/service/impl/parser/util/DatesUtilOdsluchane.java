@@ -29,7 +29,7 @@ public class DatesUtilOdsluchane {
             }
         }
         catch (DateTimeParseException ex) {
-            System.err.println(ex.getMessage());
+            //System.err.println(ex.getMessage());
             return false;
         }
         return true;
