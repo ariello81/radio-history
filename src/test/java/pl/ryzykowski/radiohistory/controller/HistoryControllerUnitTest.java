@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.ryzykowski.radiohistory.dto.Song;
-import pl.ryzykowski.radiohistory.dto.Station;
+import pl.ryzykowski.radiohistory.dto.StationDTO;
 import pl.ryzykowski.radiohistory.service.HistoryService;
 
 import java.util.List;
@@ -35,8 +35,8 @@ public class HistoryControllerUnitTest {
     @BeforeEach
     public void init(){
         songs = List.of(
-                new Song("Fix You", "Coldplay", new Station("2", "RMF FM"), "2022-12-03 10:06"),
-                new Song("Beautiful Day", "U2", new Station("2", "RMF FM"), "2022-12-05 12:04")
+                new Song("Fix You", "Coldplay", new StationDTO("2", "RMF FM"), "2022-12-03 10:06"),
+                new Song("Beautiful Day", "U2", new StationDTO("2", "RMF FM"), "2022-12-05 12:04")
         );
     }
 

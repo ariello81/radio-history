@@ -4,16 +4,16 @@ public class Song {
 
     private String title;
     private String artist;
-    private Station station;
+    private StationDTO stationDTO;
     private String dateTime;
 
     public Song() {
     }
 
-    public Song(String title, String artist, Station station, String dateTime) {
+    public Song(String title, String artist, StationDTO stationDTO, String dateTime) {
         this.title = title;
         this.artist = artist;
-        this.station = station;
+        this.stationDTO = stationDTO;
         this.dateTime = dateTime;
     }
 
@@ -33,12 +33,12 @@ public class Song {
         this.artist = artist;
     }
 
-    public Station getStation() {
-        return station;
+    public StationDTO getStation() {
+        return stationDTO;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setStation(StationDTO stationDTO) {
+        this.stationDTO = stationDTO;
     }
 
     public String getDateTime() {

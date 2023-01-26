@@ -4,11 +4,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.ryzykowski.radiohistory.config.ConfigOdsluchane;
 import pl.ryzykowski.radiohistory.dto.Song;
-import pl.ryzykowski.radiohistory.dto.Station;
 import pl.ryzykowski.radiohistory.service.impl.parser.util.DatesUtilOdsluchane;
 
 import java.io.IOException;
@@ -16,7 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class HtmlParserOdsluchane {

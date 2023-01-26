@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ryzykowski.radiohistory.dto.Song;
-import pl.ryzykowski.radiohistory.dto.Station;
+import pl.ryzykowski.radiohistory.dto.StationDTO;
 import pl.ryzykowski.radiohistory.service.HistoryService;
+import pl.ryzykowski.radiohistory.service.StationService;
 
 import java.util.List;
 
@@ -15,24 +16,19 @@ import java.util.List;
 @RequestMapping("/stations")
 public class StationController {
 
-    private HistoryService historyServiceOdsluchane;
+    private StationService stationServiceOdsluchane;
 
     @Autowired
-    public StationController(HistoryService historyServiceOdsluchane) {
-        this.historyServiceOdsluchane = historyServiceOdsluchane;
+    public StationController(StationService stationServiceOdsluchane) {
+        this.stationServiceOdsluchane = stationServiceOdsluchane;
     }
 
     @GetMapping
-    public List<Station> getAllStations() {
-        return historyServiceOdsluchane.getAllStations();
+    public List<StationDTO> getAllStations() {
+        return stationServiceOdsluchane.getAllStations();
     }
 
-    @GetMapping("/{id}/{dateFrom}/{dateTo}")
-    public List<Song> songsStationForDateRange(@PathVariable("id") String stationId,
-                                               @PathVariable("dateFrom") String dateFrom,
-                                               @PathVariable("dateTo") String dateTo){
-        return historyServiceOdsluchane.songsStationForDateRange(stationId, dateFrom, dateTo);
-    }
+
 
 
 }

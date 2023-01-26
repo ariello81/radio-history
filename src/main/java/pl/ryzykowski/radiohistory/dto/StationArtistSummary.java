@@ -2,11 +2,10 @@ package pl.ryzykowski.radiohistory.dto;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class StationArtistSummary {
 
-    private Station station;
+    private StationDTO stationDTO;
     private String dateFrom;
     private String dateTo;
     private String artist;
@@ -16,12 +15,12 @@ public class StationArtistSummary {
     public StationArtistSummary() {
     }
 
-    public Station getStation() {
-        return station;
+    public StationDTO getStation() {
+        return stationDTO;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setStation(StationDTO stationDTO) {
+        this.stationDTO = stationDTO;
     }
 
     public String getDateFrom() {

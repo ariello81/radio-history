@@ -1,14 +1,14 @@
 package pl.ryzykowski.radiohistory.dto;
 
-public class Station {
+public class StationDTO {
 
     private String id;
     private String name;
 
-    public Station() {
+    public StationDTO() {
     }
 
-    public Station(String id, String name) {
+    public StationDTO(String id, String name) {
         this.id = id;
         this.name = name;
     }
