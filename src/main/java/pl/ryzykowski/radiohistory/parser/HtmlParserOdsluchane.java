@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.ryzykowski.radiohistory.config.ConfigOdsluchane;
 import pl.ryzykowski.radiohistory.dto.SongDTO;
+import pl.ryzykowski.radiohistory.dto.StationDTO;
+import pl.ryzykowski.radiohistory.entity.Station;
+import pl.ryzykowski.radiohistory.repository.StationRepository;
 import pl.ryzykowski.radiohistory.util.DatesUtilOdsluchane;
 
 import java.io.IOException;
@@ -21,12 +24,12 @@ public class HtmlParserOdsluchane {
     private static final String URL = "https://www.odsluchane.eu/szukaj.php?";
     private static final String ARTIST_TITLE_SEPARATOR = " - ";
 
-    private ConfigOdsluchane configOdsluchane;
+    private StationRepository stationRepository;
     private DatesUtilOdsluchane datesUtilOdsluchane;
 
     @Autowired
-    public HtmlParserOdsluchane(ConfigOdsluchane configOdsluchane, DatesUtilOdsluchane datesUtilOdsluchane) {
-        this.configOdsluchane = configOdsluchane;
+    public HtmlParserOdsluchane(StationRepository stationRepository, DatesUtilOdsluchane datesUtilOdsluchane) {
+        this.stationRepository = stationRepository;
         this.datesUtilOdsluchane = datesUtilOdsluchane;
     }
 
@@ -54,7 +57,9 @@ public class HtmlParserOdsluchane {
                 String artist = element.text().substring(0, element.text().indexOf(ARTIST_TITLE_SEPARATOR));
                 String title = element.text().substring(element.text().indexOf(ARTIST_TITLE_SEPARATOR) + ARTIST_TITLE_SEPARATOR.length());
                 String time = element.parent().firstElementSibling().text();
-                songDTOS.add(new SongDTO(title, artist, configOdsluchane.getStation(stationId), date + " " + time));
+                Station station = stationRepository.findOneByUrlId(stationId);
+                songDTOS.add(new SongDTO(title, artist, new StationDTO(stationId, station.getName()),
+                        date + " " + time));
             }
         }
         return songDTOS;

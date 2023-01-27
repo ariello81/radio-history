@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(SongController.class)
-public class SongDTOControllerUnitTest {
+public class SongControllerUnitTest {
 
     @Autowired
     private MockMvc mvc;
