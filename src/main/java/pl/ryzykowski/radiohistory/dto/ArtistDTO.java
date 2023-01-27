@@ -3,16 +3,16 @@ package pl.ryzykowski.radiohistory.dto;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class StationArtistSummary {
+public class ArtistDTO {
 
     private StationDTO stationDTO;
     private String dateFrom;
     private String dateTo;
     private String artist;
     private LinkedHashMap<String, Long> distinctTitles;
-    private List<Song> songs;
+    private List<SongDTO> songDTOS;
 
-    public StationArtistSummary() {
+    public ArtistDTO() {
     }
 
     public StationDTO getStation() {
@@ -47,12 +47,12 @@ public class StationArtistSummary {
         this.artist = artist;
     }
 
-    public List<Song> getSongs() {
-        return songs;
+    public List<SongDTO> getSongDTOS() {
+        return songDTOS;
     }
 
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    public void setSongDTOS(List<SongDTO> songDTOS) {
+        this.songDTOS = songDTOS;
     }
 
     public LinkedHashMap<String, Long> getDistinctTitles() {

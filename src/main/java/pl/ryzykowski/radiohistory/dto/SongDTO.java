@@ -1,16 +1,16 @@
 package pl.ryzykowski.radiohistory.dto;
 
-public class Song {
+public class SongDTO {
 
     private String title;
     private String artist;
     private StationDTO stationDTO;
     private String dateTime;
 
-    public Song() {
+    public SongDTO() {
     }
 
-    public Song(String title, String artist, StationDTO stationDTO, String dateTime) {
+    public SongDTO(String title, String artist, StationDTO stationDTO, String dateTime) {
         this.title = title;
         this.artist = artist;
         this.stationDTO = stationDTO;

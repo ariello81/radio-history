@@ -1,4 +1,4 @@
-package pl.ryzykowski.radiohistory.service.impl.parser.util;
+package pl.ryzykowski.radiohistory.util;
 
 import org.springframework.stereotype.Component;
 

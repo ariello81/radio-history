@@ -1,4 +1,4 @@
-package pl.ryzykowski.radiohistory.service.impl.parser;
+package pl.ryzykowski.radiohistory.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,8 +6,8 @@ import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.ryzykowski.radiohistory.config.ConfigOdsluchane;
-import pl.ryzykowski.radiohistory.dto.Song;
-import pl.ryzykowski.radiohistory.service.impl.parser.util.DatesUtilOdsluchane;
+import pl.ryzykowski.radiohistory.dto.SongDTO;
+import pl.ryzykowski.radiohistory.util.DatesUtilOdsluchane;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,20 +31,20 @@ public class HtmlParserOdsluchane {
     }
 
 
-    public List<Song> getSongsForStationAndDate(String stationId, LocalDate date, String timeFrom, String timeTo) {
-        List<Song> songs = new ArrayList<>();
+    public List<SongDTO> getSongsForStationAndDate(String stationId, LocalDate date, String timeFrom, String timeTo) {
+        List<SongDTO> songDTOS = new ArrayList<>();
         try {
-            songs = tryToGetSongsForStationAndDate(stationId, date, timeFrom, timeTo);
+            songDTOS = tryToGetSongsForStationAndDate(stationId, date, timeFrom, timeTo);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        return songs;
+        return songDTOS;
     }
 
 
-    private List<Song> tryToGetSongsForStationAndDate(String stationId, LocalDate date, String timeFrom, String timeTo) throws IOException {
-        List<Song> songs = new ArrayList<>();
+    private List<SongDTO> tryToGetSongsForStationAndDate(String stationId, LocalDate date, String timeFrom, String timeTo) throws IOException {
+        List<SongDTO> songDTOS = new ArrayList<>();
         String odsluchaneDate = datesUtilOdsluchane.odsluchaneDate(date);
         Document doc = Jsoup.connect(URL+"r="+stationId+"&date="+odsluchaneDate+"&time_from="+timeFrom+"&time_to="+timeTo).get();
         Iterator<Element> iterator = doc.getElementsByClass("title-link").iterator();
@@ -54,10 +54,10 @@ public class HtmlParserOdsluchane {
                 String artist = element.text().substring(0, element.text().indexOf(ARTIST_TITLE_SEPARATOR));
                 String title = element.text().substring(element.text().indexOf(ARTIST_TITLE_SEPARATOR) + ARTIST_TITLE_SEPARATOR.length());
                 String time = element.parent().firstElementSibling().text();
-                songs.add(new Song(title, artist, configOdsluchane.getStation(stationId), date + " " + time));
+                songDTOS.add(new SongDTO(title, artist, configOdsluchane.getStation(stationId), date + " " + time));
             }
         }
-        return songs;
+        return songDTOS;
     }
 
 }
