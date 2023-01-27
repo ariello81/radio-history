@@ -20,11 +20,4 @@ public class ConfigOdsluchane {
         this.stationDTOS = stationDTOS;
     }
 
-    public StationDTO getStation(String stationId){
-        return stationDTOS
-                .stream()
-                .filter(station -> station.getId().equals(stationId))
-                .findFirst()
-                .orElse(null);
-    }
 }

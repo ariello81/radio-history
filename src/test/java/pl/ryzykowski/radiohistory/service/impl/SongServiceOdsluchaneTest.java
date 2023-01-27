@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SongServiceOdsluchaneTest {
 
     @InjectMocks
-    SongService songServiceOdsluchane;
+    SongServiceOdsluchane songServiceOdsluchane;
 
     @Mock
     HtmlParserOdsluchane htmlParserOdsluchane;

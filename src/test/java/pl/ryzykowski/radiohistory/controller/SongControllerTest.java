@@ -2,8 +2,6 @@ package pl.ryzykowski.radiohistory.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -11,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.ryzykowski.radiohistory.dto.SongDTO;
+import pl.ryzykowski.radiohistory.dto.StationDTO;
 import pl.ryzykowski.radiohistory.service.SongService;
 
 import java.util.List;
@@ -19,9 +18,8 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@ExtendWith(MockitoExtension.class)
 @WebMvcTest(SongController.class)
-public class SongControllerUnitTest {
+public class SongControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -33,10 +31,10 @@ public class SongControllerUnitTest {
 
     @BeforeEach
     public void init(){
-      /*  songDTOS = List.of(
+        songDTOS = List.of(
                 new SongDTO("Fix You", "Coldplay", new StationDTO("2", "RMF FM"), "2022-12-03 10:06"),
                 new SongDTO("Beautiful Day", "U2", new StationDTO("2", "RMF FM"), "2022-12-05 12:04")
-        );*/
+        );
     }
 
     @Test
@@ -52,7 +50,7 @@ public class SongControllerUnitTest {
 
         //when
         mvc.perform(
-                get("/api/{stationId}/{dateFrom}/{dateTo}", stationId, dateFrom, dateTo)
+                get("/songs/{stationId}/{dateFrom}/{dateTo}", stationId, dateFrom, dateTo)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
