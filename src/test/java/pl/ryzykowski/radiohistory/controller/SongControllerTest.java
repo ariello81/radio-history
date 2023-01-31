@@ -12,6 +12,7 @@ import pl.ryzykowski.radiohistory.dto.SongDTO;
 import pl.ryzykowski.radiohistory.dto.StationDTO;
 import pl.ryzykowski.radiohistory.service.SongService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -27,14 +28,12 @@ public class SongControllerTest {
     @MockBean
     private SongService songServiceOdsluchane;
 
-    private List<SongDTO> songDTOS;
+    private List<SongDTO> songDTOS = new ArrayList<>();
 
     @BeforeEach
     public void init(){
-        songDTOS = List.of(
-                new SongDTO("Fix You", "Coldplay", new StationDTO("2", "RMF FM"), "2022-12-03 10:06"),
-                new SongDTO("Beautiful Day", "U2", new StationDTO("2", "RMF FM"), "2022-12-05 12:04")
-        );
+        songDTOS.add(new SongDTO("Fix You", "Coldplay", new StationDTO("2", "RMF FM"), "2022-12-03 10:06"));
+        songDTOS.add(new SongDTO("Beautiful Day", "U2", new StationDTO("2", "RMF FM"), "2022-12-05 12:04"));
     }
 
     @Test
@@ -55,7 +54,9 @@ public class SongControllerTest {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(songDTOS.size()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artist").value("Coldplay"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].station.name").value("RMF FM"));
     }
 
 }
