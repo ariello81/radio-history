@@ -1,6 +1,7 @@
 package pl.ryzykowski.radiohistory.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -13,14 +14,22 @@ public class User {
 
     private String password;
 
+    @ManyToMany
+    @JoinTable (
+            name = "user_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
+    private Set<Authority> authorities;
 
     public User() {
     }
 
-    public User(Long id, String name, String password) {
+    public User(Long id, String name, String password, Set<Authority> authorities) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.authorities = authorities;
     }
 
     public Long getId() {
@@ -47,5 +56,11 @@ public class User {
         this.password = password;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
 
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
 }

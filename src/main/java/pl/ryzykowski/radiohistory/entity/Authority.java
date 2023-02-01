@@ -1,11 +1,7 @@
 package pl.ryzykowski.radiohistory.entity;
 
-import org.hibernate.annotations.GeneratorType;
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Authority {
@@ -16,12 +12,16 @@ public class Authority {
 
     private String name;
 
+    @ManyToMany (mappedBy = "authorities")
+    private Set<User> users;
+
     public Authority() {
     }
 
-    public Authority(Long id, String name) {
+    public Authority(Long id, String name, Set<User> users) {
         this.id = id;
         this.name = name;
+        this.users = users;
     }
 
     public Long getId() {
@@ -38,5 +38,13 @@ public class Authority {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

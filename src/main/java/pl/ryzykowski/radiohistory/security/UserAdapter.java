@@ -7,6 +7,7 @@ import pl.ryzykowski.radiohistory.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserAdapter implements UserDetails {
 
@@ -28,9 +29,10 @@ public class UserAdapter implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(() -> "read");
-        return authorities;
+        return user.getAuthorities()
+                .stream()
+                .map(AuthorityAdapter::new)
+                .collect(Collectors.toList());
     }
 
     @Override
