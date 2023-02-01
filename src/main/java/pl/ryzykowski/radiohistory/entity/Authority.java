@@ -1,9 +1,14 @@
 package pl.ryzykowski.radiohistory.entity;
 
-import javax.persistence.*;
+import org.hibernate.annotations.GeneratorType;
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
-public class User {
+public class Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,16 +16,12 @@ public class User {
 
     private String name;
 
-    private String password;
-
-
-    public User() {
+    public Authority() {
     }
 
-    public User(Long id, String name, String password) {
+    public Authority(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.password = password;
     }
 
     public Long getId() {
@@ -38,14 +39,4 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
 }
