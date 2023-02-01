@@ -18,6 +18,11 @@ public class Authority {
     public Authority() {
     }
 
+    public Authority(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Authority(Long id, String name, Set<User> users) {
         this.id = id;
         this.name = name;

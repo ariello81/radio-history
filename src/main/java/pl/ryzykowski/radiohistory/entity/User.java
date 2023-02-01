@@ -14,7 +14,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable (
             name = "user_authorities",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -23,6 +23,12 @@ public class User {
     private Set<Authority> authorities;
 
     public User() {
+    }
+
+    public User(Long id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
     }
 
     public User(Long id, String name, String password, Set<Authority> authorities) {
