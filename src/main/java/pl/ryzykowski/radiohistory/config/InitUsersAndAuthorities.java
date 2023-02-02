@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.ryzykowski.radiohistory.entity.Authority;
 import pl.ryzykowski.radiohistory.entity.Station;
@@ -38,12 +39,14 @@ public class InitUsersAndAuthorities implements CommandLineRunner {
     }
 
     private List<User> initUsersAndAuthorities() {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         List<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority(1L, "read"));
         authorities = authorityRepository.saveAll(authorities);
         List<User> users = new ArrayList<>();
-        users.add(new User(1L, "user", "12345", new HashSet<>(authorities)));
+        users.add(new User(1L, "user", encoder.encode("12345"), new HashSet<>(authorities)));
         users = userRepository.saveAll(users);
+        users.stream().forEach(u -> System.out.println(u.getPassword()));
         return users;
     }
 

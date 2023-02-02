@@ -2,10 +2,13 @@ package pl.ryzykowski.radiohistory.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.ryzykowski.radiohistory.dto.SongDTO;
@@ -37,6 +40,7 @@ public class SongControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user" , password = "12345", authorities = "read")
     public void songsStationForDateRangeTest() throws Exception {
 
         String stationId = "2";
