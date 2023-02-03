@@ -5,6 +5,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.ryzykowski.radiohistory.entity.Authority;
 import pl.ryzykowski.radiohistory.entity.Station;
@@ -24,10 +25,13 @@ public class InitUsersAndAuthorities implements CommandLineRunner {
 
     private AuthorityRepository authorityRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public InitUsersAndAuthorities(UserRepository userRepository, AuthorityRepository authorityRepository) {
+    public InitUsersAndAuthorities(UserRepository userRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -39,12 +43,14 @@ public class InitUsersAndAuthorities implements CommandLineRunner {
     }
 
     private List<User> initUsersAndAuthorities() {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         List<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority(1L, "read"));
         authorities = authorityRepository.saveAll(authorities);
         List<User> users = new ArrayList<>();
-        users.add(new User(1L, "user", encoder.encode("12345"), new HashSet<>(authorities)));
+        users.add(new User(1L, "user", passwordEncoder.encode("12345"), new HashSet<>(authorities)));
+        users.add(new User(2L, "106", passwordEncoder.encode("106"), new HashSet<>(authorities)));
+        users.add(new User(3L, "154", passwordEncoder.encode("154"), new HashSet<>(authorities)));
+        users.add(new User(4L, "160", passwordEncoder.encode("160"), new HashSet<>(authorities)));
         users = userRepository.saveAll(users);
         users.stream().forEach(u -> System.out.println(u.getPassword()));
         return users;

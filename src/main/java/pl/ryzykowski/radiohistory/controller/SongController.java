@@ -1,6 +1,9 @@
 package pl.ryzykowski.radiohistory.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.ryzykowski.radiohistory.dto.SongDTO;
 import pl.ryzykowski.radiohistory.service.SongService;
@@ -26,6 +29,13 @@ public class SongController {
         return songServiceOdsluchane.songsStationForDateRange(stationId, dateFrom, dateTo);
     }
 
-
+    @GetMapping("/{dateFrom}/{dateTo}")
+    public List<SongDTO> songsForDateRangeLoggedStation(
+                                                  @PathVariable("dateFrom") String dateFrom,
+                                                  @PathVariable("dateTo") String dateTo){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return songServiceOdsluchane.songsStationForDateRange(userDetails.getUsername(), dateFrom, dateTo);
+    }
 
 }
