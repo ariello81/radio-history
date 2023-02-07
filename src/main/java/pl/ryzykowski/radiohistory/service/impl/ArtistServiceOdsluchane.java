@@ -2,6 +2,7 @@ package pl.ryzykowski.radiohistory.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.ryzykowski.radiohistory.aop.Timed;
 import pl.ryzykowski.radiohistory.dto.SongDTO;
 import pl.ryzykowski.radiohistory.dto.ArtistDTO;
 import pl.ryzykowski.radiohistory.dto.StationDTO;
@@ -28,6 +29,7 @@ public class ArtistServiceOdsluchane implements ArtistService {
     }
 
     @Override
+    @Timed
     public ArtistDTO artistSongsForStationAndDateRange(String stationId, String dateFrom, String dateTo, String artist) {
         List<SongDTO> artistSongDTOS = songServiceOdsluchane.songsStationForDateRange(stationId, dateFrom, dateTo)
                 .stream()
@@ -53,6 +55,7 @@ public class ArtistServiceOdsluchane implements ArtistService {
     }
 
     @Override
+    @Timed
     public ArtistDTO artistSongsForStationYearAndMonth(String stationId, String artist, String year, String month) {
         LocalDate localDateFrom = LocalDate.of (Integer.parseInt(year), Integer.parseInt(month), 1);
         LocalDate localDateTo = localDateFrom.withDayOfMonth(localDateFrom.lengthOfMonth());
@@ -60,6 +63,7 @@ public class ArtistServiceOdsluchane implements ArtistService {
     }
 
     @Override
+    @Timed
     public void artistSongsForStationAndYears(String stationId, String artist, String yearStart, String yearStop) {
         int yearStartInt = Integer.parseInt(yearStart);
         int yearStopInt = Integer.parseInt(yearStop);
